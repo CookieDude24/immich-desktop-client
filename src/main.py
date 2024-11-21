@@ -17,12 +17,12 @@ def get_extensions_for_type(general_type):
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
         if (not event.is_directory and event.src_path.endswith(tuple(get_extensions_for_type("video")))
-                or event.src_path.endswith(tuple(get_extensions_for_type("image")))):
+                or event.src_path.endswith(tuple(get_extensions_for_type("image"))) or event.src_path.endswith(".webp")):
             print(f"File {event.src_path} has been created!")
             api.created(event.src_path)
     def on_deleted(self, event):
         if (not event.is_directory and event.src_path.endswith(tuple(get_extensions_for_type("video")))
-                or event.src_path.endswith(tuple(get_extensions_for_type("image")))):
+                or event.src_path.endswith(tuple(get_extensions_for_type("image"))) or event.src_path.endswith(".webp")):
             print(f"File {event.src_path} has been deleted!")
             api.delete(event.src_path)
     #   def on_moved(self, event):
@@ -52,7 +52,7 @@ directories_to_watch = config["watchdog"]["directories"]
 
 api = immich(immichHost, apiKey)
 api.testConnection()
-
+api.exportShelve()
 #sync_toggle = False
 #icon('test', Image.open("C:\\Users\\maxid\\Documents\\GitHub\\Immich Desktop Client\\resources\\icon.ico"), menu=menu(
 #    item('Checkable',on_clicked,checked=lambda item: sync_toggle))).run()

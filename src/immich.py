@@ -1,3 +1,4 @@
+import dbm
 import hashlib
 import json
 import os.path
@@ -6,6 +7,8 @@ import socket
 import subprocess
 from datetime import datetime
 from pathlib import Path
+from time import sleep
+
 import requests
 
 
@@ -54,7 +57,17 @@ class immich:
         return response.status_code
 
     def created(self, file):
-        stats = os.stat(file)
+        # when downloading images via the browser sometimes os.stat() fails therefore it retries for 3 times
+        for i in range(0,3):
+            try:
+                stats = os.stat(file)
+            except FileNotFoundError:
+               sleep(0.5)
+            else:
+                break
+        else:
+            print("Error: could not find file")
+            return False
 
         headers = {
             'Accept': 'application/json',
@@ -192,35 +205,30 @@ class immich:
         print("successfully added asset to album")
 
     def __saveImageToShelve(self, id, file):
-        images = shelve.open(self.__shelve_path, flag='c', writeback=True)
-        images[file] = id
-
-        print("added to shelve: " + str(images[file]))
-
-        images.close()
+        with shelve.open(self.__shelve_path, flag='c', writeback=True) as images:
+            images[file] = id
+            print("added to shelve: " + str(images[file]))
 
     def __getImageId(self, file):
-        images = shelve.open(self.__shelve_path, flag='r')
-        imageId = images[file]
-
-        images.close()
-
-        return imageId
+        with shelve.open(self.__shelve_path, flag='r') as images:
+            imageId = images[file]
+            return imageId
 
     def __deleteImageFromShelve(self, file):
-        images = shelve.open(self.__shelve_path, flag='c', writeback=True)
-        del images[file]
-
-        images.close()
+        with shelve.open(self.__shelve_path, flag='c', writeback=True) as images:
+            del images[file]
 
     def exportShelve(self):
-        db = shelve.open(self.__shelve_path, flag='r')
-        data = db.keys()
+        try:
+            with shelve.open(self.__shelve_path, flag='r') as db:
+                data = db.keys()
 
-        print("Start of stored data")
-        for key in data:
-            print(key, db[key])
-        print("End of stored data")
+                print("Start of stored data")
+                for key in data:
+                    print(key, db[key])
+                print("End of stored data")
+        except dbm.error:
+            print("cant export non-existing shelve")
 
     def __get_sha1(self, file: str):
         with open(file, 'rb', buffering=0) as f:
