@@ -11,6 +11,7 @@ from immich import Immich
 
 global state
 
+
 def get_extensions_for_type():
     mimetypes.init()
     temp = []
@@ -36,6 +37,7 @@ class MyHandler(FileSystemEventHandler):
         if state and not event.is_directory and event.src_path.endswith(media_file_extensions):
             print(f"File {event.src_path} has been deleted!")
             api.delete(event.src_path)
+    # TODO: make these event handlers work
     #   def on_moved(self, event):
     #       if not event.is_directory and event.src_path.endswith(".png") or event.src_path.endswith(".jpg") or event.src_path.endswith(".jpeg"):
     #           print(f"File {event.src_path} has been moved!")
@@ -44,6 +46,7 @@ class MyHandler(FileSystemEventHandler):
     #      if not event.is_directory and event.src_path.endswith(".png") or event.src_path.endswith(".jpg") or event.src_path.endswith(".jpeg"):
     #          print(f"File {event.src_path} has been modified!")
     #          api.modify(event.src_path)
+
 
 # Load Config
 config = open(str(Path.home()) + '/.Immich-desktop-client/config.yaml', 'r')
@@ -57,7 +60,7 @@ directories_to_watch = config["watchdog"]["directories"]
 
 api = Immich(immichHost, apiKey)
 api.test_connection()
-api.export_shelve()
+api.print_shelve()
 api.upload_all_images(directories_to_watch, media_file_extensions)
 
 # Create observer and event handler
@@ -68,7 +71,6 @@ for directory in directories_to_watch:
     print("watching directory: " + directory)
 observer.start()
 
-# Keep the script running
 
 def on_clicked(icon, item):
     global state
@@ -79,6 +81,7 @@ def on_clicked(icon, item):
     else:
         print("ending synchronisation")
 
+
 state = True
 # Update the state in `on_clicked` and return the new state in
 # a `checked` callable
@@ -87,5 +90,5 @@ icon('test', Image.open("C:\\Users\\maxid\\Documents\\GitHub\\Immich Desktop Cli
         'Sync directories to Immich',
         on_clicked,
         checked=lambda item: state)
-        )
-    ).run()
+)
+     ).run()

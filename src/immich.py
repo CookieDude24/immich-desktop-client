@@ -41,7 +41,6 @@ class Immich:
         try:
             with shelve.open(self.__shelve_path, flag='r') as db:
                 print("catch up with files already stored in shelve")
-                # TODO fix uploading modified files
                 data = db.keys()
                 for key in data:
                     if os.path.isfile(key):
@@ -239,7 +238,7 @@ class Immich:
         with shelve.open(self.__shelve_path, flag='c', writeback=True) as images:
             del images[file]
 
-    def export_shelve(self):
+    def print_shelve(self):
         try:
             with shelve.open(self.__shelve_path, flag='r') as db:
                 data = db.keys()
