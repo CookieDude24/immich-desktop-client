@@ -18,6 +18,7 @@ def on_clicked(icon, item):
     else:
         print("ending synchronisation")
 
+
 def get_extensions_for_type():
     mimetypes.init()
     temp = []
@@ -55,8 +56,8 @@ class MyHandler(FileSystemEventHandler):
 
 
 # Load Config
-config = open(str(Path.home()) + '/.Immich-desktop-client/config.yaml', 'r')
-config = yaml.safe_load(config)
+with open(str(Path.home()) + '/.Immich-desktop-client/config.yaml', 'rt') as file:
+    config = yaml.safe_load(file)
 
 media_file_extensions = get_extensions_for_type()
 
