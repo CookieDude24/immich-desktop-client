@@ -9,8 +9,14 @@ from watchdog.observers import Observer
 
 from immich import Immich
 
-global state
 
+def on_clicked(icon, item):
+    global state
+    state = not item.checked
+    if state is True:
+        print("starting synchronisation")
+    else:
+        print("ending synchronisation")
 
 def get_extensions_for_type():
     mimetypes.init()
@@ -54,11 +60,14 @@ config = yaml.safe_load(config)
 
 media_file_extensions = get_extensions_for_type()
 
-immichHost = config["api"]["url"]
-apiKey = config["api"]["key"]
+immich_host = config["api"]["url"]
+album_name = config["api"]["album"]
+api_key = config["api"]["key"]
 directories_to_watch = config["watchdog"]["directories"]
 
-api = Immich(immichHost, apiKey)
+state = True
+
+api = Immich(immich_host, api_key, album_name)
 api.test_connection()
 api.print_shelve()
 api.upload_all_images(directories_to_watch, media_file_extensions)
@@ -71,21 +80,9 @@ for directory in directories_to_watch:
     print("watching directory: " + directory)
 observer.start()
 
-
-def on_clicked(icon, item):
-    global state
-    state = not item.checked
-    print("change state to: ", state)
-    if state is True:
-        print("starting synchronisation")
-    else:
-        print("ending synchronisation")
-
-
-state = True
 # Update the state in `on_clicked` and return the new state in
 # a `checked` callable
-icon('test', Image.open("C:\\Users\\maxid\\Documents\\GitHub\\Immich Desktop Client\\resources\\icon.png"), menu=menu(
+icon('test', Image.open(str(Path.home()) + 'icon.ico'), menu=menu(
     item(
         'Sync directories to Immich',
         on_clicked,

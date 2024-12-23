@@ -98,14 +98,13 @@ class Immich:
             self.__save_image_to_shelve(image_id['id'], file)
             self.__add_asset_to_album(image_id['id'])
             print("saved image successfully: " + str(response.text))
-
+    # TODO: Create option to replace assets instead of adding the new version
     #    def modify(self, file):
     #                try:
     #                    stats = self.__get_file_stats(file)
     #                except FileNotFoundError:
     #                    print("could not create file")
     #                    return
-    #
     #        try:
     #            asset_id = self.__get_image_id(file)
     #        except KeyError:

@@ -1,0 +1,8 @@
+api:
+  key: <API-KEY>
+  url: https://<IMMICH_SERVER_DOMAIN>/api
+  album: <OPTIONAL; OVERRIDE THE DEFAULT ALBUM NAME>
+watchdog:
+  directories:
+    - C:\Users\test\Images\
+    - C:\Users\test\Screenshots\
