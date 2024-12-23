@@ -5,7 +5,7 @@
 #define MyAppVersion "2024.12.23"
 #define MyAppPublisher "Maximilian Dorninger"
 #define MyAppURL "https://github.com/CookieDude24/immich-desktop-client"
-#define MyAppExeName "main.exe"
+#define MyAppExeName "immich-desktop-client.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -29,13 +29,13 @@ ArchitecturesAllowed=x64compatible
 ; the 64-bit view of the registry.
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\maxid\Documents\GitHub\Immich Desktop Client\LICENSE
+LicenseFile=..\LICENSE
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline
-OutputDir=C:\Users\maxid\Documents\GitHub\Immich Desktop Client\inno setup
-OutputBaseFilename=immich-desktop-client-installer.exe
-SetupIconFile=C:\Users\maxid\Documents\GitHub\Immich Desktop Client\resources\icon.ico
+OutputDir=..\dist
+OutputBaseFilename=immich-desktop-client-installer
+SetupIconFile=icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -47,14 +47,16 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\maxid\Documents\GitHub\Immich Desktop Client\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "C:\Users\maxid\Documents\GitHub\Immich Desktop Client\resources\icon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\maxid\Documents\GitHub\Immich Desktop Client\resources\example-config.yaml"; DestDir: "{app}\config.yaml"; Flags: ignoreversion
+Source: "icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "example-config.yaml"; DestDir: "{app}\config.yaml"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

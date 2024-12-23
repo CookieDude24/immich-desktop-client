@@ -84,7 +84,7 @@ observer.start()
 
 # Update the state in `on_clicked` and return the new state in
 # a `checked` callable
-icon('test', Image.open(str(Path.home()) + 'icon.ico'), menu=menu(
+icon('test', Image.open(str(Path.home()) + '/.Immich-desktop-client/icon.ico'), menu=menu(
     item(
         'Sync directories to Immich',
         on_clicked,
