@@ -1,6 +1,8 @@
 # Immich Desktop Client
 
-![The Immich Logo behind a monitor](resources%2Ficon.png "Icon of the Immich Desktop Client Application")
+<p align="center">
+  <img src="resources/icon.png" title="Icon of the Immich Desktop Client Application" alt="The Immich Logo behind a monitor">
+</p>
 
 The **Immich Desktop Client** is an open-source application designed to integrate seamlessly with the Immich self-hosted
 media management platform. This client simplifies the process of uploading and managing media files directly from your
