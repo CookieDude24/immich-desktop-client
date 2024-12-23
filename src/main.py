@@ -44,6 +44,7 @@ class MyHandler(FileSystemEventHandler):
         if state and not event.is_directory and event.src_path.endswith(media_file_extensions):
             print(f"File {event.src_path} has been deleted!")
             api.delete(event.src_path)
+
     # TODO: make these event handlers work
     #   def on_moved(self, event):
     #       if not event.is_directory and event.src_path.endswith(".png") or event.src_path.endswith(".jpg") or event.src_path.endswith(".jpeg"):
