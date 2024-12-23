@@ -17,6 +17,10 @@ desktop to your Immich server.
 - **Checksum Validation**: Ensures data integrity with SHA-1 checksum verification during uploads
 - **Cross-Platform**: _should_ be compatible with Windows, macOS, and Linux (only tested on Windows 11)
 
+## Demo
+
+<a href="resources/Demo-Video.mp4">Here is a short video demonstrating the use of Immich-Desktop-Client!</a>
+
 ## Prerequisites
 
 - Immich server instance
