@@ -19,7 +19,7 @@ desktop to your Immich server.
 
 ## Demo
 
-<a href="resources/Demo-Video.mp4">Here is a short video demonstrating the use of Immich-Desktop-Client!</a>
+<a href="https://youtu.be/lpWbLVVhZjM" target="_blank">Here is a short video demonstrating the use of Immich-Desktop-Client!</a>
 
 ## Prerequisites
 
