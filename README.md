@@ -36,8 +36,6 @@ desktop to your Immich server.
 
 theoretically the python script is cross platform, therefore it should be executable on macOS and Linux
 
----
-
 ## Configuration
 
 > [!NOTE]
@@ -73,7 +71,10 @@ watchdog:
 
 ````
 
----
+## Build it yourself
+
+1. run ``pyinstaller -n immich-dsektop-client -F src/main.py``
+2. run ``resources\installer-script.iss`` with Inno Setup
 
 ## Roadmap
 
