@@ -1,4 +1,8 @@
 /.idea/
 /venv/
-/config.yaml
 /.idea/
+/resources/test-directory/
+/inno setup/
+/dist/
+/ccc/
+/build/
